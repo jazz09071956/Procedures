@@ -1,0 +1,375 @@
+<!-- incluye CRUD trayendo los datos desde el Backend -->
+{% extends 'navegacion.html' %}
+{% block favestilo %}
+<style>
+  .favestilo {
+    color: white;
+    background-color: #02933e;
+    font-size: 100%;
+    width: 240px;
+    margin-left: 5px;
+  }
+
+  .favestilo:hover {
+    color: white;
+    background-color: #0d6efd;
+  }
+
+  .checkbox-grande {
+    transform: scale(3.2);
+    /* Adjust the scale factor as needed */
+    margin-right: 5px;
+    /* Adjust the margin as needed */
+    margin-top: 14px;
+    /* Adjust the margin as needed */
+    background-color: #02933e;
+  }
+
+  .switch-grande {
+    transform: scale(2.3);
+    /* Adjust the scale factor as needed */
+    margin-right: 10px;
+    /* Adjust the margin as needed */
+    margin-top: 10px;
+    /* Adjust the margin as needed */
+  }
+
+  /* Custom Pagination */
+  .page-item.active .page-link {
+    columns: #fff;
+    background-color: #02933e;
+    border: 1px solid #02933e;
+  }
+
+  .pagination>li>a {
+    background-color: #fff;
+    color: #02933e;
+  }
+
+  .pagination>li>a:focus,
+  .pagination>li>a:hover,
+  .pagination>span>a:focus,
+  .pagination>span>a:focus {
+    color: #111;
+    background-color: #d3d3d3;
+    border: 1px solid #6c757d;
+    box-shadow: none;
+  }
+
+  .dt-buttons button {
+    background-color: #02933e;
+  }
+
+  .th .th.sorting {
+    background-color: yellowgreen;
+
+  }
+
+  /* ajustes de bootstrap via CSS */
+  body {
+    --bs-body-font-family: var(--bs-font-monospace);
+    --bs-body-line-height: 1.4;
+    --bs-body-bg: var(--bs-gray-100);
+  }
+
+  .table {
+    --bs-table-color: var(--bs-gray-600);
+    --bs-table-bg: var(--bs-gray-100);
+    --bs-table-border-color: transparent;
+  }
+</style>
+
+{% endblock favestilo %}
+{% block title %} Detalles de Proceso {% endblock title %}
+<!-- Navbar Content -->
+{% block navbar-content%}
+<i style="color:yellowgreen;" class="fas fa-user-alt"></i>&nbsp;&nbsp;Listado de Detalles de Proceso
+{% endblock navbar-content%}
+
+<!-- Page Content -->
+{% block content %}
+<h1>Procedimientos DD</h1><!-- fake title -->
+
+<div class="d-block mt-4">
+
+  {% block search-outside %}
+  <div class="row mt-2">
+    <div class="col-6">
+      <h3>{{parent_name}}</h3>
+    </div>
+    <div class="col-2">
+      <!-- Boton de Adicionar -->
+      {% if perms.menu.detalle_proceso_adicionar %}
+      <a href="{% url 'detalle_proceso_adicionar'  parent_pk=parent_pk %}" class="btn favestilo"
+        style="background-color:#02933e;" title="Adicionar Detalle de Proceso"><i class="fas fa-plus"
+          style="background-color:#02933e;"></i></a>
+      {% endif %}
+    </div>
+    {% if perms.menu.detalle_proceso_listado %}
+    <div class="col-3">
+      <!-- Input Search Outside -->
+      <input class="form-control" type="search" id="search"
+        style="border-style:solid; border-width:medium; border-color:#02933e" placeholder="Busqueda Global..."
+        aria-label="Search">
+    </div>
+    <div class="col-1">
+      <a href="{% url 'proceso_listado' %}"
+        onclick="cambiarColorEncabezado('#0d6efd','{% url 'proceso_listado' %}'); return false;"
+        class="btn btn-secondary btn-sm" style="background-color:#02933e;" title="Regresar a Listado de Procesos"><i
+          class="fas fa-sync-alt" style="background-color:#02933e;"></i></a>
+    </div>
+    {% endif %}
+  </div>
+  {% endblock search-outside %}
+
+</div><!-- End container -->
+{% if not detalles_proceso %}
+<div class="alert alert-success">La tabla de Detalles de Proceso esta vacia</div>
+{% else %}
+
+<table class="table table-bordered table-striped" id="tabladatos" style="text-align:center;">
+  <thead class="table-success">
+    <tr>
+      <th style="width: 5%; text-align:center">ID</th>
+      <th style="width: 10%; text-align:center">Correlativo</th>
+      <th style="width: 30%; text-align:center">Nombre</th>
+      <th style="width: 30%; text-align:center">Descripcion</th>
+      <th style="width: 5%; text-align:center">Activo</th>
+      <th class="action-color" style="width: 5%; text-align:center">Extender</th>
+    </tr>
+  </thead>
+  <!-- Data from Backend -->
+  {% for detalle_proceso in detalles_proceso %}
+  <tr>
+    <td>{{ detalle_proceso.id }}</td>
+    <td>{{ detalle_proceso.correlativo }}</td>
+    <td>{{ detalle_proceso.nombre_detalle_proceso }}</td>
+    <td>{{ detalle_proceso.descripcion_detalle_proceso }}</td>
+    <td>{# detalle_proceso.activo|yesno:"Activo,Inactivo" #}
+      {% if detalle_proceso.activo %}
+      <i class="fa-solid fa-toggle-on text-success" style="font-size:34px"></i>
+      {% else %}
+      <i class="fa-solid fa-toggle-off text-secondary" style="font-size:34px"></i>
+      {% endif %}
+    </td>
+    <td>
+      {% if perms.menu.detalle_proceso_extender %}
+      <a class="btn text-center" style="background-color:#02933e; color:white" title="Extender Detalle de Proceso"
+        href="{% url 'detalle_proceso_extendido' parent_pk=parent_pk pk=detalle_proceso.pk %}"><i
+          class="fa-solid fa-file-lines"></i></a>
+      {% endif %}
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+
+
+<br><br>
+{% endif %}
+
+
+<div class="messages" style="display:none">
+  {% for message in messages %}
+  <div class="message" data-message-type="{{ message.tags }}">
+    {{ message }}
+  </div>
+  {% endfor %}
+</div>
+
+
+
+<br>
+{% endblock content %}
+
+{% block js-script %}
+
+<!-- Datatables script -->
+{% if perms.menu.detalle_proceso_exportar %}
+<script>
+  var columnas_a_exportar = [0, 1, 2, 3, ];
+  var columnas_a_filtrar = [0, 1, 2, 3, ]; // columnas en las que se quiere colocar filtros
+  $(document).ready(function () {
+    $('#tabladatos thead tr') // configuracion para filtros por columnas
+      .clone(true)
+      .addClass('filters')
+      .appendTo('#tabladatos thead');
+    var table = $('#tabladatos').DataTable({
+      //Datatables configurations
+      //fijar columnas inicio
+      scrollX: true, // enable the horizontal scroll
+      fixedHeader: true, // Force Thead fixed (para que sea responsive)
+      // esta parte de fijar las columnas afecta el css de las columnas que se fijan
+      //fixedColumns: {
+      //  leftColumns:2,
+      //},
+      //fijar columnas final
+      paging: true, //permitir paginacion
+      pageLength: 7, //lineas por pagina
+      "language": {
+        "processing": "Procesando...",
+        "lengthMenu": "Mostrar _MENU_ registros",
+        "zeroRecords": "No existen registros",
+        "emptyTable": "La tabla esta vacia",
+        "info": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+        "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+        "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+        "infoPostFix": "",
+        "search": "Buscar:",
+        "url": "",
+        "infoThousands": ",",
+        "loadingRecords": "Cargando registros...",
+        "paginate": {
+          "first": "Primera",
+          "last": "Ultima",
+          "next": "Siguiente",
+          "previous": "Anterior"
+        },
+        "oAria": {
+          "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+          "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+        }
+      },
+      lengthChange: true, //permitir cambiar el numero de lineas mostrando el control
+      autoWidth: false, //el ancho es controlado automaticamente
+      searching: true, // muestra el textbox de busqueda global
+      bInfo: true, // muestra la informacion de cuantos registros hay y cuales esta mostrando
+      bSort: true, // permite cambiar el ordenamiento en cada columna
+      order: [], // disable order by of datatable, que se sobrepone al query
+      orderCellsTop: true, //colocar el orden ascendente/descendente on top (first thead)
+      // se seleccionan las columnas para ciertas funcionalidades como quitar el ordenamiento
+      columnDefs: [{
+        "targets": [4, ], //mas de 1 columna
+        "orderable": false
+
+      }],
+      initComplete: function () {
+        var api = this.api();
+        //set the columns you wish filtering o sea que permitan filtrar
+        api
+          .columns(columnas_a_filtrar)
+          .eq(0)
+          .each(function (colIdx) {
+            // set the header cell to contan the input element
+            var cell = $('.filters th').eq(
+              $(api.column(colIdx).header()).index()
+            );
+            var title = $(cell).text();
+            $(cell).html('<input type="text" placeholder="' + title + '"/>');
+
+            $(
+                'input',
+                $('.filters th').eq($(api.column(colIdx).header()).index())
+              )
+              .off('keyup change')
+              .on('keyup change', function (e) {
+                e.stopPropagation();
+
+                $(this).attr('title', $(this).val());
+                var regexr = '({search})';
+
+                var cursorPosition = this.selectionStart;
+
+                api
+                  .column(colIdx)
+                  .search(
+                    this.value != '' ?
+                    regexr.replace('{search}', '(((' + this.value + ')))') :
+                    '',
+                    this.value != '',
+                    this.value == ''
+                  )
+                  .draw();
+                $(this)
+                  .focus()[0]
+                  .setSelectionRange(cursorPosition, cursorPosition);
+              });
+          });
+      },
+
+      //Botones
+      dom: 'lBfrtip',
+      buttons: [{ // boton copiar
+          extend: 'copy',
+          text: '<i class="fas fa-clone"></i>',
+          clasName: 'btn btn-info',
+          titleAttr: 'Copiar',
+          // choose the columns you wish to copy
+          exportOptions: {
+            columns: columnas_a_exportar
+          },
+        },
+        { // boton Excel
+          extend: 'excel',
+          text: '<i class="fas fa-file-excel"></i>',
+          clasName: 'btn btn-info',
+          titleAttr: 'Excel',
+          // choose the columns you wish to export
+          exportOptions: {
+            columns: columnas_a_exportar
+          },
+        },
+        { // boton Print
+          extend: 'print',
+          text: '<i class="fas fa-print"></i>',
+          clasName: 'btn btn-info',
+          titleAttr: 'Imprimir',
+          // choose the columns you wish to print
+          exportOptions: {
+            columns: columnas_a_exportar
+          },
+          // font size (when export to print)
+          customize: function (win) {
+            $(win.document.body).css('font-size', '10pt')
+            $(win.document.body).find('table')
+              .addClass('compact')
+              .css('font-size', 'inherit');
+          }
+        },
+        { // boton PDF
+          extend: 'pdf',
+          text: '<i class="fas fa-file-pdf"></i>',
+          clasName: 'btn btn-info',
+          titleAttr: 'PDF',
+          // choose the columns you wish to export to pdf
+          exportOptions: {
+            columns: columnas_a_exportar
+          },
+          //center the table
+          tableHeader: {
+            alignment: 'center'
+          },
+          //font size and optimization
+          customize: function (doc) {
+            doc.styles.tableHeader.alignment = 'center'; // header position
+            doc.styles.tableBodyOdd.alignment = 'center'; // body position 1 (grey color), probar con left
+            doc.styles.tableBodyEven.alignment = 'center'; // body position 2 (white color)
+            doc.styles.tableHeader.fontSize = 7; // Header font-size
+            doc.defaultStyle.fontSize = 6; // Body font-size
+            // to get 100% width of the page
+            doc.content[1].table.widths = Array(doc.content[1].table.body[1].length + 1).join('*').split(
+              '');
+          }
+        },
+
+      ]
+
+
+    });
+    // Habilitar Searchbox outside
+    var newSearch = $("#tabladatos").DataTable();
+    $('#search').keyup(function () {
+      newSearch.search($(this).val()).draw();
+    });
+    // add your color classes
+    table.on('draw', function () {
+      table.rows().nodes().each(function (row, index) {
+        $(row).removeClass('even odd').addClass(index % 2 === 0 ? 'even' : 'odd');
+      });
+    });
+
+  });
+</script>
+{% endif %}
+
+
+{% endblock js-script %}

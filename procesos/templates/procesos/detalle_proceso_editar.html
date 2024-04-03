@@ -1,0 +1,90 @@
+{% extends 'navegacion.html' %}
+{% block title %} | detalle_proceso_editar {% endblock %}
+{% block content %}
+<form method="POST" id="frmAseguradora" class="form-inline" enctype="multipart/form-data">
+  {% csrf_token %}
+  <br>
+  <br>
+  <br>
+  <div class="row">
+    <div class="col-12 text-center">
+      <h3>Editar Detalle de Proceso</h3>
+      <h2 style="background-color: #02933e;color:#fff">{{ parent_name }}</h2>
+    </div>
+  </div>
+  <div class="col mr-2">
+    <div class="dropdown-divider"></div>
+    <div class="row">
+      <div class="col-2 btn bg-light" style="border-color: #02933e; border-width:medium;">ID</div>
+      <div class="col-4 btn" style="background-color: #02933e; color:#fff">
+        <div class="input-group">
+          {{ form.instance.id }}
+        </div>
+      </div>
+      <div class="col-2 btn bg-light" style="border-color: #02933e; border-width:medium;">Activo</div>
+      <div class=" col-4">
+        <div class="input-group">
+          <input type="checkbox" id="id_activo" name="activo" {% if detalle_proceso.activo %}checked{% endif %}
+            class="checkbox-grande">
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-2 btn bg-light" style="border-color: #02933e; border-width:medium;">Correlativo</div>
+      <div class="col-4 btn" style="background-color: #02933e">
+        <div class="input-group">
+          {{ form.correlativo }}
+        </div>
+      </div>
+      <div class="col-2 btn bg-light" style="border-color: #02933e; border-width:medium;">Nombre</div>
+      <div class="col-4 btn" style="background-color: #02933e;">
+        <div class="input-group">
+          {{ form.nombre_detalle_proceso }}
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-2 btn bg-light" style="border-color: #02933e; border-width:medium;">Descripcion</div>
+      <div class="col-4 btn" style="background-color: #02933e;">
+        <div class="input-group">
+          {{ form.descripcion_detalle_proceso }}
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-2 btn bg-light" style="border-color: #02933e; border-width:medium;">Imagen</div>
+      <div class="col-8 btn" style="background-color: #02933e;">
+        <div class="input-group">
+          {{ form.imagen }}
+        </div>
+      </div>
+    </div>
+    <br>
+    <br>
+    <div class="dropdown-divider"></div>
+    <div class="row">
+      <div class="col-5"></div>
+      <div class="col-4">
+        <button type="submit" class="btn mb-3" style="background-color: #02933e;"><i
+            class="fas fa-server"></i>&nbsp;&nbsp; Guardar Cambios</button>
+        <a href="{% url 'detalle_proceso_listado' parent_pk=parent_pk %}" class="btn btn-outline-dark mb-3 ms-2"
+          style="width: 50px;" title="Regresar"><i class="fa-solid fa-arrow-rotate-left"></i></a>
+      </div>
+    </div>
+  </div>
+</form>
+{% if instance.imagen %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <img src="{{ instance.imagen.url }}" alt="{{ instance.nombre_detalle_proceso }}" width="1400" height="800"
+        class="img-main img-fluid mb-3">
+    </div>
+  </div>
+</div>
+<br>
+{% endif %}
+{% endblock %}

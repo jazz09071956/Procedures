@@ -1,0 +1,31 @@
+{% extends 'navegacion.html' %}
+{% block title %} | usuariosaplicacion {% endblock title %}
+
+{% block titulo %}
+Usuarios de la Aplicacion
+{% endblock titulo %}
+
+{% block content %}
+
+<form action="{% url 'usuariosaplicacion' %}">
+  {% csrf_token %}
+  <div class="mb-3 mx-3 my-3">
+    <label for="archivo" class="form-label">Archivo</label>
+    <input type="text" name="archivo" class="form-control w-25" placeholder="Archivo" id="archivo"
+      aria-describedby="archivoHelp">
+    <div id="archivoHelp" class="form-text">Archivo donde guardara el resultado</div>
+  </div>
+  <div class="row mx-3 my-3">
+    <div class="col-md-2">
+      <button class="btn btn-info btn-block mt-4 fa fa-cogs" type="submit">Generar</button>
+    </div>
+    <div class="col-md-2">
+      <a href="{% url 'home_view' %}" class="btn btn-danger  btn-block mt-4"><span class="fa fa-undo"></span>
+        Cancelar</a>
+    </div>
+  </div>
+</form>
+{% endblock content %}
+
+{% block js_page %}
+{% endblock %}

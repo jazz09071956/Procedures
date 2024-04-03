@@ -1,0 +1,306 @@
+<!-- Parte 3 con botones busqueda individuales por columna -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Favicon -->
+  <link rel="icon" href="{% static 'img/money.png' %}">
+  <!-- Logo -->
+  <link rel="shorcut icon" href="{% static 'img/logo.ico' %}">
+  <!-- Bootstrap 5.3.2 CSS -->
+  <link rel="stylesheet" href="{% static 'css/bootstrap/5.3.2/bootstrap.min.css' %}">
+  <!-- Font Awesome 6.4.2 Esta ruta ya no funciona porque el paquete se instala con pip -->
+  <link rel="stylesheet" href="{% static 'css/fontawesomefree/css/fontawesome.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/fontawesomefree/css/brands.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/fontawesomefree/css/solid.min.css' %}">
+  <!-- Datatables CSS -->
+  <link rel="stylesheet" href="{% static 'css/datatables/1.13.6/dataTables.bootstrap5.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/datatables/1.13.6/buttons.bootstrap5.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/datatables/1.13.6/fixedColumns.bootstrap5.min.css' %}">
+  <!-- Static CSS (personalizadas) -->
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <!-- Sweetalert CSS -->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/sweetalert/sweetalert2.min.css' %}">
+  <!-- Static CSS (sweetalert personalizado) -->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/sweetalert/custom-sweetalert2.css' %}">
+  <!--  Titulo -->
+  <title>{% block title %}{% endblock title %}</title>
+  <!-- Select2 -->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/select2/select2.min.css' %}">
+  <!-- XDSoft Datetimepicker -->
+  <link rel="stylesheet" href="{% static 'css/datetimepicker/jquery.datetimepicker.min.css' %}">
+  {% block favestilo %}
+
+  <style>
+    .nombre_aplicacion {
+      color: white;
+
+      /* Retrieve the color from session storage or use the default */
+      background-color: {
+          {
+          request.session.color|default: "#0d6efd"
+        }
+      }
+
+      ;
+    }
+
+    .menu_aplicacion {
+      color: white;
+
+      /* Retrieve the color from session storage or use the default */
+      background-color: {
+          {
+          request.session.color|default: "#0d6efd"
+        }
+      }
+
+      ;
+    }
+
+    .footer_aplicacion {
+      color: white;
+
+      /* Retrieve the color from session storage or use the default */
+      background-color: {
+          {
+          request.session.color|default: "#0d6efd"
+        }
+      }
+
+      ;
+    }
+
+
+    .morado {
+      color: white;
+      background-color: #7066e0;
+      font-size: 100%;
+      width: 200px;
+      margin-left: 5px;
+    }
+
+    .morado:hover {
+      color: white;
+      background-color: #0d6efd;
+    }
+
+    .morado1 {
+      color: white;
+      background-color: #7066e0;
+      font-size: 100%;
+      width: 240px;
+      margin-left: 5px;
+    }
+
+    .morado1:hover {
+      color: white;
+      background-color: #0d6efd;
+    }
+
+    .morado2 {
+      color: white;
+      background-color: #7066e0;
+      font-size: 100%;
+      width: 280px;
+      margin-left: 5px;
+    }
+
+    .morado2:hover {
+      color: white;
+      background-color: #0d6efd;
+    }
+
+    .checkbox-grande {
+      transform: scale(3.2);
+      /* Adjust the scale factor as needed */
+      margin-right: 5px;
+      /* Adjust the margin as needed */
+      margin-top: 14px;
+      /* Adjust the margin as needed */
+    }
+
+    .switch-grande {
+      transform: scale(2.3);
+      /* Adjust the scale factor as needed */
+      margin-right: 10px;
+      /* Adjust the margin as needed */
+      margin-top: 10px;
+      /* Adjust the margin as needed */
+    }
+  </style>
+  {% endblock favestilo %}
+</head>
+
+<body>
+  <div class="wrapper h-auto">
+
+    <header class="d-block">
+
+
+      <nav class="navbar navbar-dark bg-black fixed-top">
+
+        <div class="container-fluid">
+          <a class="navbar-brand" href="{% url 'home_view' %}">
+            <img src="{% static 'img/logo.jpg' %}" width="120" height="30" class="d-inline-block align-top">
+            <span class="badge position-absolute top-50 start-50 translate-middle nombre_aplicacion"
+              id="nombre_aplicacion">Procedimientos DD
+              -&nbsp;Usuario:&nbsp;{{ user.username }}</span>
+          </a>
+          <button class="navbar-toggler" id="menu_aplicacion" type="button" data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar"
+            onclick="inicializarColorMenu(); return false;">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar"
+            aria-labelledby="offcanvasDarkNavbarLabel">
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Menu Principal</h5>
+              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
+                aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+              <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="{% url 'home_view' %}"> <i
+                      class="fas fa-home"></i> Inicio</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="{% url 'password_change' %}"><i
+                      class="fas fa-user-shield"></i> Cambiar Password</a>
+                </li>
+
+                <!-- Pasos -->
+                {% if perms.menu.proceso_listado %}
+                <li class="nav-item">
+                  <a class="nav-link" aria-current="page" href="{% url 'proceso_listado' %}">
+                    <i class="far fa-building"></i> Procesos
+                  </a>
+                </li>
+                {% endif %}
+
+                <li class="nav-item">
+                  <a class="nav-link" aria-current="page" href="{% url 'logout' %}">
+                    <i class="fas fa-sign-out-alt"></i> Salir
+                  </a>
+                </li>
+                {% else %}
+                <li {% if 'password_reset' in request.path %} class="nav-item active mr-3" {% else %}
+                  class="nav-item mr-3" {% endif %}>
+                  <a class="nav-link" href="{% url 'password_reset' %}">
+                    <i class="fas fa-user-plus"></i> Restablecer Password</a>
+                </li>
+                <li {% if 'login' in request.path %} class="nav-item active mr-3" {% else %} class="nav-item mr-3"
+                  {% endif %}>
+                  <a class="nav-link" href="{% url 'login' %}">
+                    <i class="fas fa-sign-in-alt"></i> Ingresar</a>
+                </li>
+                {% endif %}
+              </ul>
+            </div>
+          </div>
+        </div>
+
+
+
+        <!-- ===== search outside =====-->
+
+      </nav>
+
+    </header>
+    <!-- ===== Block content (root) =====-->
+    {% block content %}
+    {% block search-outside%}
+    {% endblock search-outside%}
+    {% endblock content %}
+    {% block adicionar %}
+    {% endblock adicionar %}
+    <footer class="d-block bg-dark text-center text-lg-start" id="footer" style="color:#fff;">
+      <div class="text-center p-3" style="background-color: rgba(0,0,0,0.2);">&copy; {% now "Y" %} Derechos de Autor -
+        <span id="footer_aplicacion">Procedimientos DD</span>
+      </div>
+    </footer>
+
+  </div> <!-- End Wrapper-->
+
+
+
+
+  <!-- Bootstrap 5.3.2 JS-->
+  <script src="{% static 'js/bootstrap/5.3.2/bootstrap.bundle.min.js' %}"></script>
+  <!-- Jquery 3.7.1   -->
+  <script src="{% static 'js/jquery/jquery-3.7.1.min.js' %}"></script>
+  <!-- Datatables JS -->
+  <script src="{% static 'js/datatables/1.13.6/jszip.min.js' %}"></script>
+  <script src="{% static 'js/datatables/1.13.6/pdfmake.min.js' %}"></script>
+  <script src="{% static 'js/datatables/1.13.6/vfs_fonts.js' %}"></script>
+  <script src="{% static 'js/datatables/1.13.6/jquery.dataTables.min.js' %}"></script>
+  <script src="{% static 'js/datatables/1.13.6/dataTables.bootstrap5.min.js' %}"></script>
+  <script src="{% static 'js/datatables/1.13.6/dataTables.buttons.min.js' %}"></script>
+  <script src="{% static 'js/datatables/1.13.6/buttons.bootstrap5.min.js' %}"></script>
+  <script src="{% static 'js/datatables/1.13.6/buttons.html5.min.js' %}"></script>
+  <script src="{% static 'js/datatables/1.13.6/buttons.print.min.js' %}"></script>
+  <script src="{% static 'js/datatables/1.13.6/dataTables.fixedColumns.min.js' %}"></script>
+  <!-- Sweet Alert JS -->
+  <script src="{% static 'js/sweetalert/sweetalert2.min.js' %}"></script>
+  <!-- Script Personalizados (Sweetalert2) -->
+  <script src="{% static 'js/custom_script.js' %}"></script>
+  <!-- Select2 -->
+  <script src="{% static 'js/select2/select2.min.js' %}"></script>
+  <!-- XDSoft Datetimepicker -->
+  <script src="{% static 'js/datetimepicker/jquery.datetimepicker.full.min.js' %} "></script>
+
+  {% block js-script %}
+  {% endblock js-script %}
+
+  <script>
+    function cambiarColorEncabezado(color, url) {
+      // Store the color in session storage
+      document.getElementById('nombre_aplicacion').style.backgroundColor = color;
+      sessionStorage.setItem('color_nombre_aplicacion', color);
+      document.getElementById('menu_aplicacion').style.backgroundColor = color;
+      sessionStorage.setItem('color_menu_aplicacion', color);
+      document.getElementById('footer_aplicacion').style.color = color;
+      sessionStorage.setItem('color_footer_aplicacion', color);
+      window.location.href = url;
+    }
+
+    // Set the color on page load
+    document.addEventListener('DOMContentLoaded', function () {
+      var storedColor = sessionStorage.getItem('color_nombre_aplicacion');
+      if (storedColor) {
+        document.getElementById('nombre_aplicacion').style.backgroundColor = storedColor;
+      }
+      var storedColor = sessionStorage.getItem('color_menu_aplicacion');
+      if (storedColor) {
+        document.getElementById('menu_aplicacion').style.backgroundColor = storedColor;
+      }
+      var storedColor = sessionStorage.getItem('color_footer_aplicacion');
+      if (storedColor) {
+        document.getElementById('footer_aplicacion').style.color = storedColor;
+      }
+    });
+
+    function inicializarColorMenu() {
+      var storedColor = sessionStorage.getItem('color_menu_aplicacion');
+      if (storedColor) {
+        document.getElementById('menu_aplicacion').style.color = storedColor;
+      } else {
+        document.getElementById('menu_aplicacion').style.backgroundColor = '#0d6efd';
+        sessionStorage.setItem('color_menu_aplicacion', '#0d6efd');
+        document.getElementById('nombre_aplicacion').style.backgroundColor = '#0d6efd';
+        sessionStorage.setItem('color_nombre_aplicacion', '#0d6efd');
+        document.getElementById('footer_aplicacion').style.color = '#0d6efd';
+        sessionStorage.setItem('color_footer_aplicacion', '#0d6efd');
+      }
+
+    }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,84 @@
+{% extends 'navegacion.html' %}
+{% block title %} | proceso_extendido {% endblock %}
+{% block content %}
+<br>
+<br>
+<br>
+<div class="row">
+  <div class="col-12 text-center">
+    <h3>Proceso Extendido</h3>
+    <h2 class="bg-primary" style="color:#fff">{{ proceso.nombre_proceso }}</h2>
+  </div>
+</div>
+<div class="card-body">
+  <div class="row">
+    <div class="col-2 btn bg-light" style="border-color: #0d6efd; border-width:medium;">ID</div>
+    <div class="col-4 btn" style="background-color: #0d6efd;">
+      <div class="input-group" style="color:#fff">
+        {{ proceso.id }}
+      </div>
+    </div>
+    <div class="col-2 btn bg-light" style="border-color: #0d6efd; border-width:medium;">Estado Actual</div>
+    <div class="col-1"></div>
+    <div class="col-3">
+      <div class="form-check form-switch">
+        {% if proceso.activo %}
+        <input class="form-check-input switch-grande bg-primary" type="checkbox" role="switch" checked disabled>
+        {% else %}
+        <input class="form-check-input switch-grande bg-secondary" type="checkbox" role="switch" disabled>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-2 btn bg-light" style="border-color: #0d6efd; border-width:medium;">Codigo Proceso
+    </div>
+    <div class=" col-4 btn" style="background-color: #0d6efd;">
+      <div class="input-group" style="color:#fff">
+        {{ proceso.codigo_proceso }}
+      </div>
+    </div>
+    <div class="col-2 btn bg-light" style="border-color: #0d6efd; border-width:medium;">Nombre Proceso
+    </div>
+    <div class=" col-4 btn" style="background-color: #0d6efd;">
+      <div class="input-group" style="color:#fff">
+        {{ proceso.nombre_proceso }}
+      </div>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-2 btn bg-light" style="border-color: #0d6efd; border-width:medium;">Descripcion
+    </div>
+    <div class=" col-4 btn" style="background-color: #0d6efd;">
+      <div class="input-group" style="color:#fff">
+        {{ proceso.descripcion_proceso }}
+      </div>
+    </div>
+  </div>
+  <br>
+  <br>
+  <div class="row">
+    <div class="col-5"></div>
+    <div class="col-1">
+      {% if perms.menu.proceso_editar %}
+      <a class="btn" style="background-color:#0d6efd; color:white; width: 50px;" title="Editar Proceso"
+        href="{% url 'proceso_editar' pk=proceso.pk %}"><i class="fas fa-pen"></i></a>
+      {% endif %}
+    </div>
+    <div class="col-1">
+      {% if perms.menu.proceso_extender %}
+      <a class="btn" style="background-color:#02933e; color:white;width: 50px;"
+        title="Visualizar Detalles de este Proceso" href="{% url 'detalle_proceso_listado' parent_pk=proceso.pk %}"
+        onclick="cambiarColorEncabezado('#02933e','{% url 'detalle_proceso_listado' parent_pk=proceso.pk %}'); return false;"><i
+          class="fas fa-list-ol"></i></a>
+      {% endif %}
+    </div>
+    <div class="col-1">
+      <a href="{% url 'proceso_listado' %}" class="btn btn-outline-dark mb-3 ms-2" style="width: 50px;"
+        title="Regresar a Listado de Procesos"><i class="fa-solid fa-arrow-rotate-left"></i></a>
+    </div>
+  </div>
+</div>
+{% endblock %}

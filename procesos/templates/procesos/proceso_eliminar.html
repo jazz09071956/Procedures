@@ -1,0 +1,80 @@
+{% extends 'navegacion.html' %}
+{% block title %} | proceso_eliminar {% endblock %}
+{% block content %}
+<br>
+<br>
+<br>
+<div class="row">
+  <div class="col-12 text-center">
+    <h2>Eliminar Proceso</h2>
+  </div>
+</div>
+
+<div class="card-body">
+  <form method="post" action="">
+    {% csrf_token %}
+    <h2>Desea realmente eliminar este registro:&nbsp;&nbsp;{{ proceso.nombre_proceso }}?</h2>
+    <div class="row">
+      <div class="col-2 btn bg-light" style="border-color: #0d6efd; border-width:medium;">ID</div>
+      <div class="col-4 btn" style="background-color: #0d6efd; color:#fff">
+        <div class="input-group">
+          {{ proceso.id }}
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-2 btn bg-light" style="border-color: #0d6efd; border-width:medium;">Codigo</div>
+      <div class="col-4 btn" style="background-color: #0d6efd; color:#fff">
+        <div class="input-group">
+          {{ proceso.codigo_proceso }}
+        </div>
+      </div>
+      <div class="col-2 btn bg-light" style="border-color: #0d6efd; border-width:medium;">Nombre Proceso
+      </div>
+      <div class="col-4 btn" style="background-color: #0d6efd; color:#fff">
+        <div class="input-group">
+          {{ proceso.nombre_proceso }}
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-2 btn bg-light" style="border-color: #0d6efd; border-width:medium;">Descripcion Proceso</div>
+      <div class="col-4 btn" style="background-color: #0d6efd; color:#fff">
+        <div class="input-group">
+          {{ proceso.descripcion_proceso }}
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-2 btn bg-light" style="border-color: #0d6efd; border-width:medium;">Estado Actual</div>
+      <div class="col-1"></div>
+      <div class="col-3">
+        <div class="form-check form-switch">
+          {% if proceso.activo %}
+          <input class="form-check-input switch-grande bg-primary" type="checkbox" role="switch" checked disabled>
+          {% else %}
+          <input class="form-check-input switch-grande bg-danger" type="checkbox" role="switch" disabled>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <br>
+    <br>
+    <div class="row">
+      <div class="col-4"></div>
+      <div class="col-3">
+        <button type="submit" class="btn mb-3" style="background-color: #ea090d; width:300px;"><i
+            class="fa-solid fa-trash-can"></i>&nbsp;&nbsp; Confirmar Eliminacion</button>
+      </div>
+      <div class="col-1">
+        <a href="{% url 'proceso_listado' %}" class="btn btn-outline-dark mb-3 ms-2" style="width: 50px;"
+          title="Regresar"><i class="fa-solid fa-arrow-rotate-left"></i></a>
+      </div>
+    </div>
+  </form>
+
+</div>
+{% endblock %}

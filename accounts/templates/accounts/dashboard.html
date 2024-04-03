@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% block title %} | Guias Elaboradas {% endblock %}
+{% block content %}
+<section id="showcase-inner" class="py-5 text-white">
+    <div class="container">
+      <div class="row text-center">
+        <div class="col-md-12">
+          <h1 class="display-4">Guias Elaboradas</h1>
+          <p class="lead">Revise las guias elaboradas</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Breadcrumb -->
+  <section id="bc" class="mt-3">
+    <div class="container">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="{% url 'index' %}">
+              <i class="fas fa-home"></i> Inicio</a>
+          </li>
+          <li class="breadcrumb-item active"> Listado</li>
+        </ol>
+      </nav>
+    </div>
+  </section>
+
+  <!-- Alerts -->
+  {% include 'parciales/_alerts.html' %}
+
+  <section id="dashboard" class="py-4">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h2>Bienvenido {{ user.first_name }}</h2>
+          {% if guias %}
+            <p>Estas son las guias que han sido elaboradas en esta sucursal</p>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Id</th>
+                  <th scope="col">Elaborada</th>
+                  <th scope="col">Numero</th>
+                  <th scope="col">Desde</th>
+                  <th scope="col">Bultos</th>
+                  <th scope="col">Hacia</th>
+                  <th scope="col">Notas</th>
+                  <th scope="col">Recibida</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for guia in guias %}
+                  <tr>
+                      <td>{{ guia.id }}</td>
+                    <td>{{ guia.fecha_elaborada }}</td>
+                      <td>{{ guia.numero_guia }}</td>
+                    <td>{{ user.username }}</td>
+                    <td>{{ guia.bultos }}</td>
+                    <td>{{ guia.destino_id }}</td>
+                    <td>{{ guia.notas }}</td>
+                    <td>{{ guia.fecha_recibida }}</td>
+                    <td>
+                      <a href="{% url 'verguia' guia.id %}" class="btn btn-primary btn-block">Editar</a>
+                    </td>
+
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          {% else %}
+            <p>Esta sucursal no ha elaborado guias</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </section>
+  {% endblock %}

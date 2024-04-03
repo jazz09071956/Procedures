@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{% static 'css/all.css' %}">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <!-- Custom -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <!-- Lightbox -->
+    <link rel="stylesheet" href="{% static 'css/lightbox.min.css' %}">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="{% static 'css/select2.min.css' %}">
+    <!-- Datatable -->
+    <link rel="stylesheet" href="{% static 'css/dataTables.bootstrap4.min.css' %}">
+    <!-- XDSoft Datetimepicker -->
+    <link rel="stylesheet" href="{% static 'css/jquery.datetimepicker.min.css' %}">
+    <!-- JQuery-comfirm -->
+    <link rel="stylesheet" href="{% static 'css/jquery-confirm.min.css' %}">
+
+    <title>Financiamientos DD {% block title %}{% endblock %}</title>
+</head>
+<body>
+    <!--  NavBar -->
+    {% include 'parciales/_navbar.html' %}
+
+    <!--  Main Content -->
+    {% block content %} {% endblock %}
+    
+    <!--  Footer -->
+    {% include 'parciales/_footer.html' %}
+
+    <script src="{% static 'js/jquery-3.3.1.min.js' %} "></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %} "></script>
+    <script src="{% static 'js/lightbox.min.js' %} "></script>
+    <script src="{% static 'js/select2.min.js' %} "></script>
+    <script src="{% static 'js/jquery.dataTables.min.js' %} "></script>
+    <script src="{% static 'js/dataTables.bootstrap4.min.js' %} "></script>
+    <script src="{% static 'js/jquery.datetimepicker.full.min.js' %} "></script>
+    <script src="{% static 'js/jquery-confirm.min.js' %} "></script>
+
+    <script src="{% static 'js/main.js' %} "></script>
+    {% block js_page %}
+    <script>
+      $(document).ready(function () {
+        jQuery.datetimepicker.setLocale('es');
+      });
+    </script>
+
+    {% endblock %}
+  </body>
+</html>

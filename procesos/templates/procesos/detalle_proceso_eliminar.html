@@ -1,0 +1,71 @@
+{% extends 'navegacion.html' %}
+{% block title %} | detalle_proceso_eliminar {% endblock %}
+{% block content %}
+<br>
+<br>
+<br>
+<div class="row">
+  <div class="col-12 text-center">
+    <h3>Eliminar Detalle de Proceso</h3>
+    <h2 class="bg-warning">{{ parent_name }}</h2>
+  </div>
+</div>
+
+<div class="card-body">
+  <form method="post" action="">
+    {% csrf_token %}
+    <h2>Desea realmente eliminar este
+      registro:&nbsp;&nbsp;{{ detalle_proceso.nombre_detalle_proceso }}?</h2>
+    <div class="row">
+      <div class="col-2 btn bg-light" style="border-color: #02933e; border-width:medium;">ID</div>
+      <div class="col-4 btn" style="background-color: #02933e; color:#fff">
+        <div class="input-group">
+          {{ detalle_proceso.id }}
+        </div>
+      </div>
+      <div class="col-2 btn bg-light" style="border-color: #02933e; border-width:medium;">Estado Actual</div>
+      <div class="col-1"></div>
+      <div class="col-3">
+        <div class="form-check form-switch">
+          {% if detalle_proceso.activo %}
+          <input class="form-check-input switch-grande bg-success" type="checkbox" role="switch" checked disabled>
+          {% else %}
+          <input class="form-check-input switch-grande bg-danger" type="checkbox" role="switch" disabled>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-2 btn bg-light" style="border-color: #02933e; border-width:medium;">Correlativo</div>
+      <div class="col-4 btn" style="background-color: #02933e; color:#fff">
+        <div class="input-group">
+          {{ detalle_proceso.correlativo_paso }}
+        </div>
+      </div>
+      <div class="col-2 btn bg-light" style="border-color: #02933e; border-width:medium;">Nombre</div>
+      <div class="col-4 btn" style="background-color: #02933e; color:#fff">
+        <div class="input-group">
+          {{ detalle_proceso.nombre_detalle_proceso }}
+        </div>
+      </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <div class="row">
+      <div class="col-4"></div>
+      <div class="col-3">
+        <button type="submit" class="btn mb-3" style="background-color: #ea090d; width:300px;"><i
+            class="fa-solid fa-trash-can"></i>&nbsp;&nbsp; Confirmar Eliminacion</button>
+      </div>
+      <div class="col-1">
+        <a href="{% url 'detalle_proceso_extendido' parent_pk=parent_pk pk=detalle_proceso.pk  %}"
+          class="btn btn-outline-dark mb-3 ms-2" style="width: 50px;" title="Regresar"><i
+            class="fa-solid fa-arrow-rotate-left"></i></a>
+      </div>
+    </div>
+  </form>
+
+</div>
+{% endblock %}

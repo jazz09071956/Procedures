@@ -1,0 +1,12 @@
+/* custom-sweetalert.css */
+
+/* Change the background color of the modal */
+.swal2-popup {
+  background-color:rgba(0,0,0,0.99);
+  color: #fff;
+}
+
+/* Change the text color of the title */
+.swal2-title {
+  color: #0dcaf0;
+}

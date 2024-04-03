@@ -1,0 +1,59 @@
+{% extends 'navegacion.html' %}
+{% block title %} | financiera_form {% endblock %}
+{% block content %}
+<form method="POST" action="{% url 'login' %}" class="form-inline">
+    {% csrf_token %}
+    <br>
+    <br>
+    <br>
+    <div class="col-xl-12 col-md-12 mb-12">
+        <div class="card-body">
+            <div class="row no-gutters align-items-center">
+                <div class="col mr-2">
+                    <div class="row">
+                        <div class="col-4"></div>
+                        <div class="col-4 btn bg-light" style="border-color: #0d6efd; border-width:medium;">
+                            <h3>Por favor
+                                digite sus credenciales</h3>
+                        </div>
+                    </div>
+                    <div class="dropdown-divider"></div>
+                    <br>
+                    <div class="row">
+                        <div class="col-4"></div>
+                        <div class="col-2 btn bg-light" style="border-color: #0d6efd; border-width:medium;">Usuario
+                        </div>
+                        <div class=" col-2 btn" style="background-color: #0d6efd; width:215px;">
+                            <div class="input-group">
+                                {{ form.username }}
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-4"></div>
+                        <div class="col-2 btn bg-light" style="border-color: #0d6efd; border-width:medium;">Password
+                        </div>
+                        <div class=" col-2 btn" style="background-color: #0d6efd; width:215px;">
+                            <div class="input-group">
+                                {{ form.password }}
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="dropdown-divider"></div>
+                    <div class="row">
+                        <div class="col-5"></div>
+                        <div class="col-4">
+                            <button type="submit" class="btn mb-3" style="background-color: #0d6efd;"><i
+                                    class="fas fa-server"></i>&nbsp;&nbsp; Ingresar</button>
+                            <a href="{% url 'home_view' %}" class="btn btn-outline-dark mb-3 ms-2" style="width: 50px;"
+                                title="Cancelar"><i class="fa-solid fa-arrow-rotate-left"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}

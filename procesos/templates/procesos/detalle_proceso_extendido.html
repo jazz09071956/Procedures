@@ -1,0 +1,86 @@
+{% extends 'navegacion.html' %}
+{% block title %} | detalle_proceso_extendido {% endblock %}
+{% block content %}
+<br>
+<br>
+<br>
+<div class="row">
+  <div class="col-12 text-center">
+    <h3>Detalle de Proceso Extendido</h3>
+    <h2 style="background-color: #02933e;color:#fff">{{ parent_name }}</h2>
+  </div>
+</div>
+<div class="card-body">
+  <div class="row">
+    <div class="col-2 btn bg-light" style="border-color: #02933e; border-width:medium;">ID</div>
+    <div class="col-4 btn" style="background-color: #02933e;">
+      <div class="input-group" style="color:#fff">
+        {{ detalle_proceso.id }}
+      </div>
+    </div>
+    <div class="col-2 btn bg-light" style="border-color: #02933e; border-width:medium;">Estado Actual</div>
+    <div class="col-1"></div>
+    <div class="col-3">
+      <div class="form-check form-switch">
+        {% if detalle_proceso.activo %}
+        <input class="form-check-input switch-grande bg-success" type="checkbox" role="switch" checked disabled>
+        {% else %}
+        <input class="form-check-input switch-grande bg-secondary" type="checkbox" role="switch" disabled>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-2 btn bg-light" style="border-color: #02933e; border-width:medium;">Correlativo</div>
+    <div class="col-4 btn" style="background-color: #02933e; color:#fff">
+      <div class="input-group">
+        {{ detalle_proceso.correlativo }}
+      </div>
+    </div>
+    <div class="col-2 btn bg-light" style="border-color: #02933e; border-width:medium;">Nombre</div>
+    <div class="col-4 btn" style="background-color: #02933e; color:#fff">
+      <div class="input-group">
+        {{ detalle_proceso.nombre_detalle_proceso }}
+      </div>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-2 btn bg-light" style="border-color: #02933e; border-width:medium;">Descripcion</div>
+    <div class="col-4 btn" style="background-color: #02933e; color:#fff">
+      <div class="input-group">
+        {{ detalle_proceso.descripcion_detalle_proceso }}
+      </div>
+    </div>
+  </div>
+  <br>
+  {% if detalle_proceso.imagen %}
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <img src="{{ detalle_proceso.imagen.url }}" alt="{{ detalle_proceso.nombre_detalle_proceso }}" width="1400"
+          height="800" class="img-main img-fluid mb-3">
+      </div>
+    </div>
+  </div>
+  {% endif %}
+  <br>
+  <br>
+  <div class=" row">
+    <div class="col-4"></div>
+
+    <div class="col-1">
+      {% if perms.menu.detalle_proceso_editar %}
+      <a class="btn" style="background-color:#02933e; color:white; width: 50px;" title="Editar"
+        href="{% url 'detalle_proceso_editar' parent_pk=parent_pk pk=detalle_proceso.pk %}"><i
+          class="fas fa-pen"></i></a>
+      {% endif %}
+    </div>
+    <div class="col-1">
+      <a href="{% url 'detalle_proceso_listado' parent_pk=parent_pk  %}" class="btn btn-outline-dark mb-3 ms-2"
+        style="width: 50px;" title="Regresar"><i class="fa-solid fa-arrow-rotate-left"></i></a>
+    </div>
+  </div>
+</div>
+{% endblock %}

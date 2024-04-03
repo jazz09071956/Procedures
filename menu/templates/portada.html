@@ -1,0 +1,28 @@
+{% extends 'navegacion.html' %}
+
+<!-- 
+      <img src="portada.jpg" alt="">
+
+-->
+
+{% load static %}
+{% block title %} | Portada {% endblock title %}
+
+
+{%  block content %}
+
+<!-- Portada -->
+<section id="portada">
+  <br>
+  <!-- Page Heading -->
+  <img src="{% static 'img/portada.jpg' %}" width="1536" height="800" class="d-inline-block align-top">
+</section>
+<div class="messages" style="display:none">
+  {% for message in messages %}
+  <div class="message" data-message-type="{{ message.tags }}">
+    {{ message }}
+  </div>
+  {% endfor %}
+</div>
+
+{% endblock content %}

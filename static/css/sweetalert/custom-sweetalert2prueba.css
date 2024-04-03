@@ -1,0 +1,45 @@
+/* custom-sweetalert.css */
+
+/* Change the background color of the modal */
+.swal2-popup {
+  background-color:rgba(0,0,0,0.651);
+  color: #fff;
+}
+
+/* Change the text color of the title */
+.swal2-title {
+  color: #fff;
+  font-size: 30px;
+}
+
+/* Change the text color of the content */
+.swal2-content {
+  color: #ddd;
+}
+
+/*copiados
+/* boton */
+.swal2-button {
+  padding: 7px 19px;
+  border-radius: 5px;
+  background-color: #198754;
+  font-size: 22px;
+  border: 1px solid #198754;
+}
+.swal2-button:focus{
+  box-shadow: none;
+
+}
+.swal2-button:not([disabled]):hover{
+  background: transparent;
+  color:#fff;
+  border: 1px solid #198754;
+}
+/* Icons */
+.swal2-icon--success__hide-corners {
+  background: none !important;
+}
+.swal2-icon--success:before,
+.swal2-icon--success:after {
+  background: none !important;
+}

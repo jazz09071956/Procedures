@@ -1,0 +1,143 @@
+.even {
+  background-color: #f2f2f2;/* light gray for even rows*/
+  }
+.odd {
+  background-color: #ffffff;/* white for odd rows*/
+  }
+/* start configuration */
+html,
+body {
+  height: 100%;
+  margin: 10;
+}
+/* Footer */
+.wrapper {
+  min-height: 100%;
+  margin-bottom: -50px;
+
+}
+#footer,
+.push{
+  height: 50px;
+}
+/* labels of inputs*/
+.side-label {
+  width: 45px;
+}
+/* Custom Pagination */
+.page-item.active .page-link {
+  columns: #fff;
+  background-color: #7066e0;
+  border: 1px solid #7066e0;
+}
+.pagination  > li > a {
+  background-color: #fff;
+  color: #7066e0;
+}
+.pagination >li >a:focus,
+.pagination >li >a:hover,
+.pagination >span >a:focus,
+.pagination >span >a:focus {
+  color: #111;
+  background-color: #d3d3d3;
+  border: 1px solid #6c757d;
+  box-shadow:none;
+}
+
+/* Datatables */
+/* pagination */
+.dataTables_paginate {
+  margin-top: -30px !important;
+  margin-right: 10px !important;
+  /*margin-top: 10px !important; posicion original*/
+}
+/* text box de busqueda */
+.dataTables_filter {
+  margin-bottom: 10px !important;
+  margin-right: 10px !important;
+  /* para ocultar la busqueda original que aparece a la derecha */
+  display: none;
+}
+/* si se oculta la busqueda original se pierde el margin-top de el control que regula el numero de lineas es necesario lo siguiente */
+/* show control para cambiar el numero de entradas*/
+.dataTables_length {
+  /* para pasarlo a la derecha
+  margin-bottom: 10px !important;
+  */
+  float: right !important;
+  margin-top: 10px !important;
+  margin-right: 10px !important;
+
+}
+/* agregar margen a los botones */
+.dt-buttons{
+  margin-right: 10px !important;
+  margin-left: 10px !important;
+  background-color: #7066e0;
+}
+.dt-buttons button{
+  background-color: #7066e0;
+}
+/* Thead datatable */
+/* metodo 1 para no duplicar los encabezados, borrarlos para los botones del CRUD
+el otro es usar la clase action-color
+*/
+.sorting_disabled {
+  color: transparent !important;
+}
+
+/* not a datatables, it's a complement*/
+thead input{
+  width:100%;
+  text-align: center;
+}
+/* metodo 2 para no duplicar los encabezados */
+.action-color {
+  color: transparent;
+}
+th:nth-child(8), th:nth-child(9) {
+  text-align: center;
+  border: none;
+}
+.no-wrap{
+  white-space: nowrap;
+}
+
+/* sweet alert customization*/
+.swal-modal {
+  background-color:rgba(0,0,0,0.651);
+  color: #fff;
+}
+.swal-title {
+  color: #fff;
+  font-size: 20px;
+}
+.swal-text{
+  color: #fff;
+  font-size: 15px;
+}
+/* boton */
+.swal-button {
+  padding: 7px 19px;
+  border-radius: 5px;
+  background-color: #198754;
+  font-size: 12px;
+  border: 1px solid #198754;
+}
+.swal-button:focus{
+  box-shadow: none;
+
+}
+.swal-button:not([disabled]):hover{
+  background: transparent;
+  color:#fff;
+  border: 1px solid #198754;
+}
+/* Icons */
+.swal-icon--success__hide-corners {
+  background: none !important;
+}
+.swal-icon--success:before,
+.swal-icon--success:after {
+  background: none !important;
+}
